@@ -5,8 +5,23 @@ docker exec -it jupyter_datascience /bin/sh -c "[ -e /bin/bash ] && /bin/bash ||
 - dockerコンテナ内部にexecで入り以下コマンドを実行
 ``` パスワード設定コマンド
 python -c 'from notebook.auth import passwd;print(passwd())'
+
+export JUPYTERTOKEN="YOUR_PASSWORD_HASH_VALUE"
 ```
 
 # Jupyter実行
 start-notebook.sh \
---NotebookApp.password='sha1:3213f430bcb3:e9ca43f8305ba2a20ac1dc896a59864b387b5c97'
+--NotebookApp.password=$JUPYTERTOKEN --port Your docker-compose setting ports
+
+
+sudo docker run  \
+    --user jovyan \
+    -e GRANT_SUDO=yes \
+    -e NB_UID=$UID \
+    -e NB_GID=$GID \
+    -e TZ=Asia/Tokyo \
+    -p 4444:4444 \
+    --name testnotebo \
+    -v ~/path/to/directory/:/home/jovyan/work \
+    jupyter/datascience-notebook \
+    start-notebook.sh \
