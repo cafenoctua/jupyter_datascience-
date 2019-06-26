@@ -1,0 +1,14 @@
+version: "3"
+services:
+  app:
+    container_name: "jupyter_datascience"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: jupyter/datascience-notebook
+    volumes:
+    - ./src:/home/jovyan/work 
+    command: /bin/bash
+    ports:
+      - 8888:8888
+    tty: true
