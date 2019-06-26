@@ -10,5 +10,5 @@ services:
     - ./src:/home/jovyan/work 
     command: /bin/bash
     ports:
-      - 8888:8888
+      - 3333:3333
     tty: true
